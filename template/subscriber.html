@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Library Management System {% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+
+                <h2> <b>Subscriber </b>  <button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodalll">Add New Subscriber</button> </h2>
+
+                 <table class="table table-hover table-light">
+                    <tr>
+                        <th>Subscriber ID</th>
+                        <th>Type</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                    </tr>
+
+                     {% for row in subscriber %}
+
+                     <tr>
+                         <td>{{row.subscriber_id}}</td>
+                         <td>{{row.typ}}</td>
+                         <td>{{row.name_subscriber}}</td>
+                         <td>{{row.address}}</td>
+                         <td>{{row.phone}}</td>
+                         <td>{{row.email}}</td>
+                         <td>
+                             <a href="/updatesubscriber/{{row.subscriber_id}}" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modaleditll{{row.subscriber_id}}">Edit</a>
+                             <a href="/deletesubscriber/{{row.subscriber_id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure to Delete?')">Delete</a>
+                         </td>
+                     </tr>
+ <!-- Modal Edit Employee-->
+<div id="modaleditll{{row.subscriber_id}}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+
+         <div class="modal-header">
+            <h4 class="modal-title">Update Information</h4>
+         </div>
+
+
+         <div class="modal-body">
+            <form action="{{url_for('updatesubscriber')}}" method="POST">
+
+               <div class="form-group">
+                   <label>Type:</label>
+                   <input type="hidden"  name="subscriber_id" value="{{row.subscriber_id}}">
+                   <input type="text" class="form-control" name="typ" value="{{row.typ}}">
+               </div>
+
+               <div class="form-group">
+                   <label>Name:</label>
+                   <input type="text" class="form-control" name="name_subscriber" value="{{row.name_subscriber}}">
+               </div>
+
+                <div class="form-group">
+                   <label>Address:</label>
+                   <input type="text" class="form-control" name="address" value="{{row.address}}">
+               </div>
+
+                <div class="form-group">
+                   <label>Phone:</label>
+                   <input type="number" class="form-control" name="phone" value="{{row.phone}}">
+               </div>
+
+                <div class="form-group">
+                   <label>Email:</label>
+                   <input type="email" class="form-control" name="email" value="{{row.email}}">
+               </div>
+
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Update</button>
+               </div>
+            </form>
+         </div>
+
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+
+       </div>
+    </div>
+</div>
+<!-- End -->
+
+
+                     {% endfor %}
+                 </table>
+            </div>
+
+<!-- Modal Add Item-->
+<div id="mymodalll" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Add Item</h4>
+         </div>
+
+         <div class="modal-body">
+            <form action="{{url_for('insertsubscriber')}}" method="POST">
+
+               <div class="form-group">
+                  <label>Type:</label>
+                  <input type="text" class="form-control" name="typ" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Name:</label>
+                  <input type="text" class="form-control" name="name_subscriber" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Address:</label>
+                  <input type="text" class="form-control" name="address" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Phone:</label>
+                  <input type="number" class="form-control" name="phone" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Email:</label>
+                  <input type="email" class="form-control" name="email" required="1">
+               </div>
+
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Add Subscriber</button>
+               </div>
+
+            </form>
+         </div>
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+
+      </div>
+   </div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Library Management System {% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+
+                <h2> <b>Item </b>  <button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodall">Add New Item</button> </h2>
+
+
+
+
+
+
+                 <table class="table table-hover table-dark">
+                    <tr>
+                        <th>Item ID</th>
+                        <th>Category</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Publisher</th>
+                        <th>Production Year</th>
+                        <th>Copies</th>
+                        <th>Action</th>
+                    </tr>
+
+                     {% for row in item %}
+
+                     <tr>
+                         <td>{{row.item_id}}</td>
+                         <td>{{row.category}}</td>
+                         <td>{{row.title}}</td>
+                         <td>{{row.author}}</td>
+                         <td>{{row.publisher}}</td>
+                         <td>{{row.production}}</td>
+                         <td>{{row.copies}}</td>
+                         <td>
+                             <a href="/updateitem/{{row.item_id}}" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modaleditl{{row.item_id}}">Edit</a>
+                             <a href="/deleteitem/{{row.item_id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure to Delete?')">Delete</a>
+                         </td>
+                     </tr>
+ <!-- Modal Edit Employee-->
+<div id="modaleditl{{row.item_id}}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+
+         <div class="modal-header">
+            <h4 class="modal-title">Update Information</h4>
+         </div>
+
+
+         <div class="modal-body">
+            <form action="{{url_for('updateitem')}}" method="POST">
+
+               <div class="form-group">
+                   <label>Category:</label>
+                   <input type="hidden"  name="item_id" value="{{row.item_id}}">
+                   <input type="text" class="form-control" name="category" value="{{row.category}}">
+               </div>
+
+               <div class="form-group">
+                   <label>Title:</label>
+                   <input type="text" class="form-control" name="title" value="{{row.title}}">
+               </div>
+
+                <div class="form-group">
+                   <label>Author:</label>
+                   <input type="text" class="form-control" name="author" value="{{row.author}}">
+               </div>
+
+                <div class="form-group">
+                   <label>Publisher:</label>
+                   <input type="text" class="form-control" name="publisher" value="{{row.publisher}}">
+               </div>
+
+                <div class="form-group">
+                   <label>Production Years:</label>
+                   <input type="text" class="form-control" name="production" value="{{row.production}}">
+               </div>
+
+                <div class="form-group">
+                   <label>Copies:</label>
+                   <input type="text" class="form-control" name="copies" value="{{row.copies}}">
+               </div>
+
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Update</button>
+               </div>
+            </form>
+         </div>
+
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+
+       </div>
+    </div>
+</div>
+<!-- End -->
+
+
+                     {% endfor %}
+                 </table>
+            </div>
+
+<!-- Modal Add Item-->
+<div id="mymodall" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Add Item</h4>
+         </div>
+
+         <div class="modal-body">
+            <form action="{{url_for('insertitem')}}" method="POST">
+
+               <div class="form-group">
+                  <label>Category:</label>
+                  <input type="text" class="form-control" name="category" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Title:</label>
+                  <input type="text" class="form-control" name="title" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Author:</label>
+                  <input type="text" class="form-control" name="author" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Publisher:</label>
+                  <input type="text" class="form-control" name="publisher" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Production Year:</label>
+                  <input type="number" class="form-control" name="production" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Copies:</label>
+                  <input type="number" class="form-control" name="copies" required="1">
+               </div>
+
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Add Item</button>
+               </div>
+
+            </form>
+         </div>
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+
+      </div>
+   </div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Library Management System {% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+
+                <h2> <b>Borrower </b>  <button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodallll">Add New Borrower</button> </h2>
+
+                 <table class="table table-hover table-light">
+                    <tr>
+                        <th>subscriber ID</th>
+                        <th>Borrow Date</th>
+                        <th>Item ID</th>
+                        <th>Return Date</th>
+                        <th>Fee</th>
+                    </tr>
+
+                     {% for row in borrow %}
+
+                     <tr>
+                         <td>{{row.sub_id}}</td>
+                         <td>{{row.borrowdate}}</td>
+                         <td>{{row.itemid}}</td>
+                         <td>{{row.returndate}}</td>
+                         <td>{{row.fee}}</td>
+                         <td>
+                             <a href="/updateborrow/{{row.sub_id}}" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modaleditlll{{row.sub_id}}">Edit</a>
+                             <a href="/deleteborrow/{{row.sub_id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure to Delete?')">Delete</a>
+                         </td>
+                     </tr>
+ <!-- Modal Edit Employee-->
+<div id="modaleditlll{{row.sub_id}}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+
+         <div class="modal-header">
+            <h4 class="modal-title">Update Information</h4>
+         </div>
+
+
+         <div class="modal-body">
+            <form action="{{url_for('updateborrow')}}" method="POST">
+
+               <div class="form-group">
+                   <label>Borrow Date:</label>
+                   <input type="hidden"  name="sub_id" value="{{row.sub_id}}">
+                   <input type="date" class="form-control" name="borrowdate" value="{{row.borrowdate}}">
+               </div>
+
+               <div class="form-group">
+                   <label>Item ID:</label>
+                   <input type="number" class="form-control" name="itemid" value="{{row.itemid}}">
+               </div>
+
+                <div class="form-group">
+                   <label>Return Date:</label>
+                   <input type="date" class="form-control" name="returndate" value="{{row.returndate}}">
+               </div>
+
+                <div class="form-group">
+                   <label>Fee:</label>
+                   <input type="number" class="form-control" name="fee" value="{{row.fee}}">
+               </div>
+
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Update</button>
+               </div>
+            </form>
+         </div>
+
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+
+       </div>
+    </div>
+</div>
+<!-- End -->
+
+
+                     {% endfor %}
+                 </table>
+            </div>
+
+<!-- Modal Add Item-->
+<div id="mymodallll" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Add Borrower</h4>
+         </div>
+
+         <div class="modal-body">
+            <form action="{{url_for('insertborrow')}}" method="POST">
+
+               <div class="form-group">
+                  <label>Borrow Date:</label>
+                  <input type="date" class="form-control" name="borrowdate" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Item ID:</label>
+                  <input type="number" class="form-control" name="itemid" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Return Date:</label>
+                  <input type="date" class="form-control" name="returndate" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Fee:</label>
+                  <input type="number" class="form-control" name="fee" required="1">
+               </div>
+
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Add Borrower</button>
+               </div>
+
+            </form>
+         </div>
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+
+      </div>
+   </div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+{% endblock %}
