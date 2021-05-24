@@ -10,5 +10,5 @@ Requirement:
 7. Module flash dan flask_sqlalchemy terinstall di python
 
 Langkah :
-1. Jalankan terlebih dahulu run_database.py di direktori database sekali dan setelahnya tidak perlu.
+1. Jalankan terlebih dahulu run_database.py di direktori database sekali dan setelahnya tidak perlu atau import file crud.sql melalui phpmyadmin
 2. Jalankan app.py 
